@@ -5,6 +5,7 @@ import { ImageGalleryItem } from './ImageGalleryItem';
 import { Modal } from '../Modal/Modal';
 import { ThreeDots } from 'react-loader-spinner';
 import css from '../ImageGallery/Gallery.module.css';
+import PropTypes from 'prop-types';
 
 export class ImageGallery extends Component {
   state = {
@@ -117,3 +118,11 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  isLoading: PropTypes.bool,
+
+  page: PropTypes.number,
+  shownModal: PropTypes.bool,
+  selectedImage: PropTypes.string,
+};
