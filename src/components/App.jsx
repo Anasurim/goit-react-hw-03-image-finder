@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Modal } from './Modal/Modal';
+import { Searchbar } from './Searchbar/Searchbar';
 
 export class App extends Component {
   state = {
+    searchQuerry: '',
     shownModal: false,
+  };
+
+  handleFormSubmit = querry => {
+    this.setState({ searchQuerry: querry });
   };
 
   toggleModal = () => {
@@ -14,6 +20,12 @@ export class App extends Component {
 
   render() {
     const { shownModal } = this.state;
-    return <>{shownModal && <Modal></Modal>}</>;
+    return (
+      <>
+        <Searchbar onSubmit={this.handleFormSubmit} />
+
+        {shownModal && <Modal></Modal>}
+      </>
+    );
   }
 }
