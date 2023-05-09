@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import css from '../Searchbar/Searchbar.module.css';
 
 export class Searchbar extends Component {
   state = {
@@ -24,21 +25,23 @@ export class Searchbar extends Component {
   render() {
     return (
       <>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <BiSearch />
-          </button>
+        <div className={css.Searchbar}>
+          <form className={css.SearchForm} onSubmit={this.handleSubmit}>
+            <button type="submit" className={css.SearchFormButton}>
+              <BiSearch />
+            </button>
 
-          <input
-            className="input"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.querry}
-            autoComplete="off"
-            autoFocus
-            placeholder="Search"
-          />
-        </form>
+            <input
+              className={css.SearchFormInput}
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.querry}
+              autoComplete="off"
+              autoFocus
+              placeholder="Search"
+            />
+          </form>
+        </div>
       </>
     );
   }

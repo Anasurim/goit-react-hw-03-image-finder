@@ -1,6 +1,8 @@
 import { Button } from 'components/Button/Button';
 import React, { Component } from 'react';
 import { fetchImages } from '../Services/ImageAPI';
+import ImageGalleryItem from './ImageGalleryItem';
+import css from '../ImageGallery/Gallery.module.css';
 
 export class ImageGallery extends Component {
   state = {
@@ -69,20 +71,16 @@ export class ImageGallery extends Component {
 
     return (
       <>
-        {error && <h2>Something went wrong...</h2>}
-        {isLoading && <div>Loading...</div>}
-        {imageHits && (
-          <ul className="gallery">
-            {imageHits.map(({ id, webformatURL }) => {
-              return (
-                <li key={id} className="gallery-item">
-                  <img src={webformatURL} alt="user_image" />
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        {imageHits.length >= 12 && <Button onClick={this.onClick} />}
+        <div className={css.App}>
+          {error && <h2>Something went wrong...</h2>}
+          {isLoading && <div>Loading...</div>}
+          {imageHits && (
+            <ul className={css.ImageGallery}>
+              <ImageGalleryItem images={imageHits} />
+            </ul>
+          )}
+          {imageHits.length >= 12 && <Button onClick={this.onClick} />}
+        </div>
       </>
     );
   }

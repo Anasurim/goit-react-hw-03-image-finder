@@ -25,6 +25,7 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery searchQuerry={searchQuerry} />
+
         {shownModal && <Modal></Modal>}
       </>
     );
