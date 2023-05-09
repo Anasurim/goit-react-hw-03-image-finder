@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal } from './Modal/Modal';
 import { Searchbar } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
@@ -19,11 +20,11 @@ export class App extends Component {
   };
 
   render() {
-    const { shownModal } = this.state;
+    const { shownModal, searchQuerry } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
-
+        <ImageGallery searchQuerry={searchQuerry} />
         {shownModal && <Modal></Modal>}
       </>
     );
