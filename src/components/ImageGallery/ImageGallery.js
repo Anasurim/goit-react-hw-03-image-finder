@@ -1,7 +1,9 @@
-import { Button } from 'components/Button/Button';
 import React, { Component } from 'react';
+import { Button } from 'components/Button/Button';
 import { fetchImages } from '../Services/ImageAPI';
-import ImageGalleryItem from './ImageGalleryItem';
+import { ImageGalleryItem } from './ImageGalleryItem';
+import { Modal } from '../Modal/Modal';
+import { ThreeDots } from 'react-loader-spinner';
 import css from '../ImageGallery/Gallery.module.css';
 
 export class ImageGallery extends Component {
@@ -10,6 +12,8 @@ export class ImageGallery extends Component {
     isLoading: false,
     error: null,
     page: 1,
+    shownModal: false,
+    selectedImage: null,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -65,21 +69,49 @@ export class ImageGallery extends Component {
     }
   };
 
+  handleImageClick = imageUrl => {
+    this.setState({ selectedImage: imageUrl });
+    this.toggleModal();
+  };
+
+  toggleModal = () => {
+    this.setState(({ shownModal }) => ({
+      shownModal: !shownModal,
+    }));
+  };
+
   render() {
-    const { imageHits, isLoading, error } = this.state;
-    console.log(imageHits.length);
+    const { imageHits, isLoading, error, shownModal, selectedImage } =
+      this.state;
 
     return (
       <>
         <div className={css.App}>
           {error && <h2>Something went wrong...</h2>}
-          {isLoading && <div>Loading...</div>}
+          {isLoading && (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#3f51b5"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          )}
           {imageHits && (
             <ul className={css.ImageGallery}>
-              <ImageGalleryItem images={imageHits} />
+              <ImageGalleryItem
+                images={imageHits}
+                onClick={this.handleImageClick}
+              />
             </ul>
           )}
           {imageHits.length >= 12 && <Button onClick={this.onClick} />}
+          {shownModal && (
+            <Modal onClose={this.toggleModal} imageUrl={selectedImage}></Modal>
+          )}
         </div>
       </>
     );
